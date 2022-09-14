@@ -1,0 +1,69 @@
+* {
+    padding: 0;
+    box-sizing: border-box;
+}
+#title {
+    color: royalblue;
+    font-size: 50px;
+}
+
+body {
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+}
+
+hr {
+    width: 400px;
+    height: 10px;
+}
+
+#board {
+    width: 450px;
+    height: 450px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;    
+}
+
+button {
+    background-color: violet;
+    border-color: violet;
+    color: white;
+    border-radius: 20px;
+    font-size: 23px;
+    padding: 10px 10px;
+}
+
+button:hover {
+    cursor: pointer;
+    color: red;
+
+}
+
+.tile {
+    width: 150px;
+    height: 150px;
+    font-size: 120px;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    color: royalblue;
+    border-right: 2px solid;
+    border-bottom: 2px solid;
+} 
+/* gets rid of borders on the right and bottom */
+.tile:nth-child(3n){
+    border-right: none;
+}
+
+.tile:nth-child(7){
+    border-bottom: none;
+}
+
+.tile:nth-child(8){
+    border-bottom: none;
+}
+
+.tile:nth-child(9){
+    border-bottom: none;
+}
