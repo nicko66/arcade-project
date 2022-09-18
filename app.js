@@ -1,6 +1,8 @@
 const titleElem = document.querySelector("#board")
 console.log("board" , titleElem);
 
+let wonText = document.getElementById('wonText')
+
 let restartButton = document.getElementById('restartBtn')
 console.log(restartButton);
 
@@ -15,6 +17,7 @@ let currentPlayer = playerTwo
 function gameStart(){
     tiles.forEach(tile => tile.addEventListener('click', tileClicked))
 }
+console.log(tileClicked)
 
 function tileClicked(e){
     const id = e.target.id
@@ -26,6 +29,7 @@ function tileClicked(e){
         if(playerWon()!==false){
             wonText = `${currentPlayer} won!!`
             let winningTiles = playerWon()
+            
 
 
         }
@@ -34,14 +38,14 @@ function tileClicked(e){
     }
 }
 // all winning combinations to determine winner
-let win = [
- [0,1,2]
- [3,4,5]
- [6,7,8]
- [0,3,6]
- [1,4,7]
- [2,5,8]
- [0,4,8]
+const win = [
+ [0,1,2],
+ [3,4,5],
+ [6,7,8],
+ [0,3,6],
+ [1,4,7],
+ [2,5,8],
+ [0,4,8],
  [2,4,6]
 
 ]
