@@ -8,11 +8,13 @@ let restartButton = document.getElementById('restartBtn')
 // array.from converts the html collection into an array
 let tiles = Array.from(document.getElementsByClassName('tile'))
 
+let winnerOfGame = getComputedStyle(document.body).getPropertyValue('--winning-tiles')
+
 // create 9 'null' or empty spaces to be filled in
-const spaces = [null, null, null, null, null, null, null, null, null];
-const playerOne = 'O';
-const playerTwo = 'X';
-let currentPlayer = playerTwo
+let spaces = [null, null, null, null, null, null, null, null, null];
+const playerO = 'O';
+const playerX= 'X';
+let currentPlayer = playerX
 
 function gameStart(){
     tiles.forEach(tile => tile.addEventListener('click', tileClicked))
@@ -25,10 +27,17 @@ function tileClicked(e){
     
     if(!spaces[id]){ //allows space to be filled if it doesn't contain an id
         spaces[id] = currentPlayer // if index is empty it will be filled with currentPlayer which is 'x' or 'o'
-        e.target.innerText = currentPlayer        
-     }
-
-        currentPlayer = currentPlayer == playerTwo ? playerOne : playerTwo // if currentPlayer is = to playerOne, change to playerTwo, if playerTwo, change to playerOne
+        e.target.innerText = currentPlayer 
+        
+        if(playerWon() !==false){
+            playerText = `${currentPlayer} has won!`
+            let winning_tiles = playerWon()
+            
+            winning_tiles.map( tile => tiles[tile].style.backgroundColor=winnerOfGame)
+        }
+        
+        currentPlayer = currentPlayer == playerX ? playerO : playerX // if currentPlayer is = to playerOne, change to playerTwo, if playerTwo, change to playerOne
+      }  
     }
 
 // all winning combinations to determine winner
@@ -65,12 +74,13 @@ restartButton.addEventListener('click', restart)
 function restart(){
     spaces.fill(null) // clears spaces and fills with null
     tiles.forEach(tile => {
-        tile.innerText = '' // when box is cleared, this fills it with an empty space
+    tile.innerText = '' // when box is cleared, this fills it with an empty space
+    tile.style.backgroundColor=''
     })
     
     wonText = 'Tic Tac Toe'
 
-    currentPlayer = playerTwo
+    currentPlayer = playerX
 }
 
 gameStart()

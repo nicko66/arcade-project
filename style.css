@@ -2,6 +2,11 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+:root {
+    --winning-tiles: indigo;
+}
+
 #wonText {
     color: royalblue;
     font-size: 50px;
@@ -22,7 +27,8 @@ hr {
     height: 450px;
     margin: 0 auto;
     display: flex;
-    flex-wrap: wrap;    
+    flex-wrap: wrap;  
+    cursor: pointer;  
 }
 
 button {
