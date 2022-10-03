@@ -5,6 +5,15 @@ let wonText = document.getElementById('wonText')
 
 let restartButton = document.getElementById('restartBtn')
 
+let playerTurn = document.getElementById('playerTurn')
+
+function myFunction() {
+    let userInput = document.querySelector("#userInput");
+    let message = document.querySelector("#message");
+
+    message.innerHTML = "Hello, " + userInput.value;
+}
+
 // array.from converts the html collection into an array
 let tiles = Array.from(document.getElementsByClassName('tile'))
 
@@ -15,31 +24,70 @@ let spaces = [null, null, null, null, null, null, null, null, null];
 const playerO = 'O';
 const playerX= 'X';
 let currentPlayer = playerX
+let gameWinner = false
 
-function gameStart(){
-    tiles.forEach(tile => tile.addEventListener('click', tileClicked))
-}
-
-// create a function that allows user to input X or O within gameboard
-function tileClicked(e){
-    const id = e.target.id // targets the id within the gameboard
+function gameStart(){ 
+    if (gameWinner !==true){
+        for (let tile of tiles){ 
+        console.log('gameWinner', gameWinner)
+       tile.addEventListener('click', tileClicked)
+       changePlayer()
+    }
     
-    
-    if(!spaces[id]){ //allows space to be filled if it doesn't contain an id
-        spaces[id] = currentPlayer // if index is empty it will be filled with currentPlayer which is 'x' or 'o'
-        e.target.innerText = currentPlayer 
-        
-        if(playerWon() !==false){
-            playerText = `${currentPlayer} has won!`
-            let winning_tiles = playerWon()
-            
-            winning_tiles.map( tile => tiles[tile].style.backgroundColor=winnerOfGame)
-        }
-        
-        currentPlayer = currentPlayer == playerX ? playerO : playerX // if currentPlayer is = to playerOne, change to playerTwo, if playerTwo, change to playerOne
-      }  
+     } 
+       return
     }
 
+
+// create a function that allows user to input X or O within gameboard
+function tileClicked(event){
+    const id = event.target.id // targets the id within the gameboard
+    
+   
+
+         if(!spaces[id] && !gameWinner){ //allows space to be filled if it doesn't contain an id
+        spaces[id] = currentPlayer // if index is empty it will be filled with currentPlayer which is 'x' or 'o'
+        event.target.innerText = currentPlayer 
+        console.log(playerWon(), 'playerWon')
+            
+        if(playerWon() !==false){
+              playerTurn.innerText = `${currentPlayer} has won!`
+              gameWinner = true
+              let winning_tiles = playerWon()
+              console.log('here', gameWinner)
+
+            
+            winning_tiles.map( tile => tiles[tile].style.backgroundColor=winnerOfGame)
+            return
+        }
+        changePlayer()
+        if (!spaces.includes(null)){
+            playerTurn.innerText = 'It is a draw!'
+            return
+        }
+       
+      } 
+      return 
+    } 
+        
+    function changePlayer(){
+        if (gameWinner!==true) {
+            if (currentPlayer ==='X') {
+                currentPlayer = 'O'
+                playerTurn.innerText = `It's ${playerO} turn`
+            } else {
+                currentPlayer = 'X'
+                playerTurn.innerText = `It's ${playerX} turn`
+            }
+        } else {
+            return
+        }
+    } 
+
+
+    
+    
+   
 // all winning combinations to determine winner
 const win = [
  [0,1,2],
@@ -78,9 +126,10 @@ function restart(){
     tile.style.backgroundColor=''
     })
     
-    wonText = 'Tic Tac Toe'
 
     currentPlayer = playerX
+
+    gameWinner = false
 }
 
 gameStart()
